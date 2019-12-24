@@ -10,7 +10,7 @@ import android.view.View.OnClickListener;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
-    public View gameView;
+    public GameView gameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
