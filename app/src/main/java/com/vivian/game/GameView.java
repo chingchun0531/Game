@@ -12,40 +12,50 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 public class GameView extends View {
-   private float posX,posY =400;
-
-
-
+  Shiba shiba;
+  Bitmap BitmapShiba;
+  Bitmap BitmapShibaNG;
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (shiba ==null){
+            shiba = new Shiba(this);
+        }
         Paint paint = new Paint();
-        canvas.drawLine(400,0,0,300,paint);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.shiba);
-        canvas.drawBitmap(bitmap,posX,posY,paint);
+        BitmapShiba = BitmapFactory.decodeResource(getResources(),R.drawable.shiba_inu);
+        BitmapShibaNG = BitmapFactory.decodeResource(getResources(),R.drawable.shiba_ng);
+        canvas.drawBitmap(BitmapShiba,shiba.getX(),shiba.getY(),paint);
         Log.d("Game","OnDraw:"+getWidth()+","+getHeight());
     }
-    public void setPosX(float posX) {
-        if (posX > 0 && posX < getWidth() - 100) {
-            this.posX = posX;
+    public void moveRight(){
+        if(shiba.getX()<getWidth()-200){
+            shiba.setDirection(Shiba.DIRECTION_RIGHT);
+            invalidate();
         }
     }
-    public float getPosX() {
-        return posX;
-    }
-    public void setPosY(float posY){
-        if (posY > 0 && posY < getHeight() - 100) {
-            this.posY = posY;
+    public void moveLeft(){
+        if(shiba.getX()>50){
+            shiba.setDirection(Shiba.DIRECTION_LEFT);
+            invalidate();
         }
     }
-
-    public float getPosY() {
-        return posY;
+    public void moveUp(){
+        if(shiba.getY()>50){
+            shiba.setDirection(Shiba.DIRECTION_UP);
+            invalidate();
+        }
     }
-
+    public void moveDown(){
+        if(shiba.getY()<getHeight()-200){
+            shiba.setDirection(Shiba.DIRECTION_DOWN);
+            invalidate();
+        }
+    }
 }
+
+
+
