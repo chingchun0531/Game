@@ -13,8 +13,9 @@ import androidx.annotation.Nullable;
 
 public class GameView extends View {
   Shiba shiba;
-  Bitmap BitmapShiba;
-  Bitmap BitmapShibaNG;
+  Bitmap bitmapShiba;
+  Bitmap bitmapShibaNG;
+    Paint paint = new Paint();
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
@@ -24,12 +25,14 @@ public class GameView extends View {
         super.onDraw(canvas);
         if (shiba ==null){
             shiba = new Shiba(this);
+            bitmapShiba = BitmapFactory.decodeResource(getResources(),R.drawable.shiba_inu);
+            bitmapShibaNG = BitmapFactory.decodeResource(getResources(),R.drawable.shiba_ng);
         }
-        Paint paint = new Paint();
-        BitmapShiba = BitmapFactory.decodeResource(getResources(),R.drawable.shiba_inu);
-        BitmapShibaNG = BitmapFactory.decodeResource(getResources(),R.drawable.shiba_ng);
-        canvas.drawBitmap(BitmapShiba,shiba.getX(),shiba.getY(),paint);
+        canvas.drawBitmap(bitmapShiba,shiba.getX(),shiba.getY(),paint);
         Log.d("Game","OnDraw:"+getWidth()+","+getHeight());
+        if(shiba.getDirection()==Shiba.DIRECTION_NG){
+            bitmapShiba = bitmapShibaNG;
+        }
     }
     public void moveRight(){
         if(shiba.getX()<getWidth()-200){
